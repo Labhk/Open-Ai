@@ -11,12 +11,16 @@ const openai = new OpenAIApi(new Configuration({
     apiKey: process.env.API_KEY
 }))
 
-// setup server
+
 const app = express();
 app.use(bodyParser.json());
-app.use(cors());
+const corsOptions = {
+    origin: ['https://course-verse.netlify.app/', 'http://localhost:5173'],
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  };
+  
+  app.use(cors(corsOptions));
 
-//endpoint for chapt GPT
 
 app.post("/chat", async (req,res) => {
 
